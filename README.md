@@ -1,12 +1,12 @@
-# Django Blog Application deployed on AWS Application Load Balancer with Auto Scaling, S3, Relational Database Service, VPC's Components, Lambda, DynamoDB and CloudFront with Route 53
+# Django Blog Application deployed on AWS Application Load Balancer with Auto Scaling, S3, Relational Database Service, VPC's Components, Lambda, DynamoDB and CloudFront with Route 53 using AWS CloudFormation Template
 
 ## Description
 
-The Blog Page Application aims to deploy blog application as a web application written Django Framework on AWS Cloud Infrastructure. This infrastructure has Application Load Balancer with Auto Scaling Group of Elastic Compute Cloud (EC2) Instances and Relational Database Service (RDS) on defined VPC. Also, The CloudFront and Route 53 services are located in front of the architecture and manage the traffic in secure. User is able to upload pictures and videos on own blog page and these are kept on S3 Bucket.
+The Blog Page Application aims to deploy blog application as a web application written Django Framework on AWS Cloud Infrastructure using CloudFormation Template to create all resources needed to deploy the architecture. This infrastructure has Application Load Balancer with Auto Scaling Group of Elastic Compute Cloud (EC2) Instances and Relational Database Service (RDS) on defined VPC. Also, The CloudFront and Route 53 services are located in front of the architecture and manage the traffic in secure. User is able to upload pictures and videos on own blog page and these are kept on S3 Bucket.
 
-## Project Details
+## Project Architecture
 
-![Project](capstone.jpg)
+![Project](./readme/blog.jpg)
 
 - Your company has recently ended up a project that aims to serve as Blog web application on isolated VPC environment. You and your colleagues have started to work on the project. Your Developer team has developed the application and you are going to deploy the app in production environment.
 
@@ -56,7 +56,7 @@ In the architecture, you can configure your infrastructure using the followings,
 
   - Scaling Policy --> Target Tracking Policy
 
-    - Average CPU utilization (set Target Value ` %70`)
+    - Average CPU utilization (set Target Value ` %80`)
 
     - seconds warm up before including in metric ---> `200`
 
@@ -179,9 +179,43 @@ You need to have following credentials in `.env` file under the `src` folder to 
   PASSWORD='your DB password without any quotes'
   ```
 
-## Expected Outcome
+---
 
-![Phonebook App Search Page](./outputs.png)
+## Hi DevOps Team;
+
+- We have coded a blog app. Users can publish their blog pages which have their comments, movie or picture files.
+
+- Movie and picture files are kept in S3 as object.
+
+  - You should create an S3 bucket and write name of it on "/src/cblog/settings.py" file as AWS_STORAGE_BUCKET_NAME variable.
+
+  - In addition, you must assign region of S3 as AWS_S3_REGION_NAME variable.
+
+- Users credentials and blog contents are going to be kept on RDS database. To connect ECs to RDS, following variables must be assigned on "/src/cblog/settings.py" file after you create RDS;
+
+  - a. Database name - "NAME" variable
+
+  - b. Database endpoint - "HOST" variables
+
+  - c. Port - "PORT"
+
+  - d. PASSWORD variable must be written on "/src/.env" file not to be exposed with settings file
+
+- We need to look object list of S3.
+
+  - That's why, we decided to create a DynamoDB table. We have thought to use Lambda function for this purpose and also we have written python code.
+
+  - However, we need help to create Lambda function to manage this serverless process. You can find our python function as lambda_function.py within github repo.
+
+- Since our first aim is to keep our environment in highly secure environment, we want you to establish this infrastructure in our own VPC.
+
+<i>Thanks for your time and patience dear DevOps. Good Luck!</i>
+
+---
+
+## Expected CloudFormation Stack Outcome
+
+![Stack Output](./readme/outputs.png)
 
 ### The following topics will be used at the end of the project:
 
@@ -304,3 +338,5 @@ You need to have following credentials in `.env` file under the `src` folder to 
 - [Python Django Example](https://realpython.com/get-started-with-django-1/)
 
 - [AWS CLI Command Reference](https://docs.aws.amazon.com/cli/latest/index.html)
+
+- [AWS CloudFormation](https://aws.amazon.com/tr/cloudformation/)
